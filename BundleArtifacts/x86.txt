@@ -1,0 +1,2 @@
+MainPackage=C:\Users\admin\source\repos\Droniada-telemetry-UWP\bin\x86\Release\Droniada-telemetry-UWP_1.0.3.0_x86.appx
+SymbolPackage=C:\Users\admin\source\repos\Droniada-telemetry-UWP\obj\x86\Release\Symbols\Droniada-telemetry-UWP_1.0.3.0_x86.appxsym

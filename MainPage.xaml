@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="Droniada_telemetry_UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Droniada_telemetry_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" x:Name="MyScrollViewer">
+            <StackPanel>
+                <TextBlock Name="LocationLabel" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+                   Margin="10"/>
+            </StackPanel>
+        </ScrollViewer>
+
+
+        <TextBlock Text="" 
+               Foreground="{ThemeResource ApplicationForegroundThemeBrush}" 
+               FontSize="10" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Bottom" 
+               Grid.Row="1"
+               x:Name="statusText"/>
+    </Grid>
+
+
+</Page>
