@@ -4,12 +4,16 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2"
+  IgnorableNamespaces="uap mp iot uap4 uap3 uap2">
 
   <Identity
     Name="com.droniadaagh"
     Publisher="CN=admin"
-    Version="1.0.3.0" />
+    Version="2.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="db1d08ee-4e1f-4361-91e1-e838b9d8a225" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -45,6 +49,21 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="internetClientServer"/>
+    <uap:Capability Name="phoneCall"/>
+    <uap:Capability Name="voipCall"/>
+    <Capability Name="privateNetworkClientServer"/>
+    <uap:Capability Name="sharedUserCertificates"/>
+    <iot:Capability Name="lowLevelDevices"/>
+    <uap:Capability Name="enterpriseAuthentication"/>
+    <uap4:Capability Name="userDataTasks"/>
+    <uap4:Capability Name="offlineMapsManagement"/>
+    <iot:Capability Name="systemManagement"/>
+    <uap:Capability Name="blockedChatMessages"/>
+    <uap:Capability Name="appointments"/>
+    <uap3:Capability Name="remoteSystem"/>
+    <uap2:Capability Name="spatialPerception"/>
+    <uap3:Capability Name="backgroundMediaPlayback"/>
 
     <DeviceCapability Name="usb">
         <Device Id="vidpid:2ca3 001f">
@@ -57,5 +76,10 @@
         <Function Type="name:serialPort" />
       </Device>
     </DeviceCapability>
+    <DeviceCapability Name="location"/>
+    <DeviceCapability Name="webcam"/>
+    <DeviceCapability Name="proximity"/>
+    <DeviceCapability Name="pointOfService"/>
+    <DeviceCapability Name="lowLevel"/>
   </Capabilities>
 </Package>

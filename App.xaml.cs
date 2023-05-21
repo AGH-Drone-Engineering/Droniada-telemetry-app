@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using mavic;
+using Grpc.Core;
 
 namespace Droniada_telemetry_UWP
 {
@@ -30,6 +32,13 @@ namespace Droniada_telemetry_UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            var server = new Grpc.Core.Server
+            {
+                Services = { TelemetryService.BindService(new TelemetryServiceClass()) },
+                Ports = { new ServerPort("0.0.0.0", 50051, ServerCredentials.Insecure) }
+            };
+            server.Start();
+
         }
 
         /// <summary>

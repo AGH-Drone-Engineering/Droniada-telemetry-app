@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package mavic;
+option csharp_namespace = "mavic";
+
+service TelemetryService {
+  rpc GetTelemetry (Empty) returns (Telemetry);
+}
+
+
+
+message Empty {}
+
+message Telemetry {
+  float lat = 1;
+  float long = 2;
+  float heading = 3;
+  float altitude = 4;
+}

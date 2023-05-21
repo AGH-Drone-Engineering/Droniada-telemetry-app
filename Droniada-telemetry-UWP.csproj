@@ -131,6 +131,8 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mavic.cs" />
+    <Compile Include="MavicGrpc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +170,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf">
+      <Version>3.23.1</Version>
+    </PackageReference>
+    <PackageReference Include="Grpc.Core">
+      <Version>2.46.6</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
@@ -179,6 +187,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Droniada-telemetry-UWP_TemporaryKey.pfx" />
+    <None Include="NuGet.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="Protos\mavic.proto" GrpcServices="Server,Client" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ProtoCs\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

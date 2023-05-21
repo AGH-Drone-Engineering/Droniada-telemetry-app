@@ -13,6 +13,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DJI.WindowsSDK;
+using System.Threading.Tasks;
+using Grpc.Core;
+using mavic;
+
 
 //Szablon elementu Pusta strona jest udokumentowany na stronie https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x415
 
@@ -23,7 +27,39 @@ namespace Droniada_telemetry_UWP
     /// </summary>
     /// 
 
-    
+    public class TelemetryServiceClass : TelemetryService.TelemetryServiceBase
+    {
+        public override Task<Telemetry> GetTelemetry(Empty request, ServerCallContext context)
+        {
+            // Fetch the telemetry data using DJI Windows SDK.
+            // The actual implementation will depend on how the DJI SDK works.
+            var telemetry = new Telemetry();
+
+            Task<ResultValue<LocationCoordinate2D?>> task1 = DJISDKManager.Instance.ComponentManager.GetFlightControllerHandler(0, 0).GetAircraftLocationAsync();
+            Task<ResultValue<DoubleMsg?>> task2 = DJISDKManager.Instance.ComponentManager.GetFlightControllerHandler(0, 0).GetAltitudeAsync();
+
+            task1.Wait();
+            task2.Wait();
+
+            var location = task1.Result;
+            var altitude = task2.Result;
+
+            if (location.error == SDKError.NO_ERROR && altitude.error == SDKError.NO_ERROR)
+            {
+                telemetry.Lat = (float)location.value.Value.latitude;
+                telemetry.Long = (float)location.value.Value.longitude;
+                telemetry.Altitude = (float)altitude.value.Value.value;
+                telemetry.Heading = float.NaN;
+            }
+            else
+            {
+                telemetry.Lat = telemetry.Long = telemetry.Lat = telemetry.Altitude = float.NaN;
+            }
+
+            return Task.FromResult(telemetry);
+        }
+    }
+
 
     public sealed partial class MainPage : Page
     {
@@ -46,10 +82,11 @@ namespace Droniada_telemetry_UWP
         private async void Timer_Tick(object sender, object e)
         {
             var locationResult = await DJISDKManager.Instance.ComponentManager.GetFlightControllerHandler(0, 0).GetAircraftLocationAsync();
-            if (locationResult.error == SDKError.NO_ERROR)
+            var alt = await DJISDKManager.Instance.ComponentManager.GetFlightControllerHandler(0, 0).GetAltitudeAsync();
+            if (locationResult.error == SDKError.NO_ERROR && alt.error == SDKError.NO_ERROR)
             {
                 var location = locationResult.value.Value;
-                LocationLabel.Text += $"Latitude: {location.latitude}, Longitude: {location.longitude}\n";
+                LocationLabel.Text += $"Latitude: {location.latitude}, Longitude: {location.longitude}, ALt: {alt.value.Value.value}\n";
             }
             else
             {
